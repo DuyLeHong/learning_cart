@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:learning_cart/pages/cart_page/data/cart_state.dart';
 
 class CheckOutPanel extends StatelessWidget {
   const CheckOutPanel({
     Key? key,
     this.onPressedCheckOutButton,
   }) : super(key: key);
-
   final Function()? onPressedCheckOutButton;
 
   @override
@@ -19,16 +19,16 @@ class CheckOutPanel extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Checkout Price:',
                   style: TextStyle(
                     fontSize: 24,
                   ),
                 ),
                 Text(
-                  'Rs. 5000',
-                  style: TextStyle(
+                  'Rs. ${cartState.totalPrice}',
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),

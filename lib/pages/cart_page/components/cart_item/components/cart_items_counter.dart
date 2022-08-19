@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 
-class CartItemsCounter extends StatefulWidget {
-  const CartItemsCounter({
-    Key? key,
-    this.itemCount = 1,
-  }) : super(key: key);
+class CartItemsCounter extends StatelessWidget {
+  const CartItemsCounter(
+      {Key? key,
+      this.itemCount = 1,
+      required this.onPlusPressed,
+      required this.onMinusPressed})
+      : super(key: key);
 
   final int itemCount;
+  final VoidCallback onPlusPressed;
+  final VoidCallback onMinusPressed;
 
-  @override
-  State<CartItemsCounter> createState() => _CartItemsCounterState();
-}
-
-class _CartItemsCounterState extends State<CartItemsCounter> {
-  late int itemCount = widget.itemCount;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         IconButton(
-          onPressed: onPressedMinusButton,
+          onPressed: onMinusPressed,
           icon: const Icon(
             Icons.remove,
             color: Colors.red,
@@ -33,7 +31,9 @@ class _CartItemsCounterState extends State<CartItemsCounter> {
           ),
         ),
         IconButton(
-          onPressed: onPressedAddButton,
+          onPressed: () {
+            onPlusPressed();
+          },
           icon: const Icon(
             Icons.add,
             color: Colors.green,
@@ -41,18 +41,5 @@ class _CartItemsCounterState extends State<CartItemsCounter> {
         ),
       ],
     );
-  }
-
-  void onPressedMinusButton() {
-    setState(() {
-      itemCount--;
-      if (itemCount <= 0) itemCount = 1;
-    });
-  }
-
-  void onPressedAddButton() {
-    setState(() {
-      itemCount++;
-    });
   }
 }

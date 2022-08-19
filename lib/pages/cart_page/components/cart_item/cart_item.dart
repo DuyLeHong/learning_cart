@@ -7,44 +7,51 @@ class CartItem extends StatelessWidget {
   const CartItem({
     Key? key,
     required this.itemName,
-    required this.image,
+    required this.imageUrl,
     required this.price,
     this.itemCount = 1,
-    this.borderRadius = const BorderRadius.all(Radius.circular(20)),
     this.onPressedDeleteButton,
+    required this.onPlusPressed,
+    required this.onMinusPressed,
   }) : super(key: key);
 
+  // phần giống/ chung về layout (loại widget, khoảng cách giữa widget, thứ tự sắp xếp...)
+  // mình để bên trong
+  // khác nhau -> đưa ra ngoài bằng tham số trên constructor: data, cum wwidget khac nhau
   final String itemName;
-  final Image image;
+  final String
+      imageUrl; // chỉ đưa widget ra ngoài, khi mình cần loại widget khác nhau
   final double price;
   final int itemCount;
-  final BorderRadius? borderRadius;
   final Function()? onPressedDeleteButton;
+  final VoidCallback onPlusPressed;
+  final VoidCallback onMinusPressed;
 
   @override
   Widget build(BuildContext context) {
     double subTotal = price * itemCount;
     return ClipRRect(
-      borderRadius: borderRadius,
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Container(
         margin: const EdgeInsets.only(bottom: 3.0, right: 3.0),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: Colors.grey,
               offset: Offset(0.0, 1.0), //(x,y)
               blurRadius: 3.0,
             ),
           ],
-          borderRadius: borderRadius,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: Row(
           children: [
-            SizedBox(
+            Image.network(
+              imageUrl,
               width: 155,
               height: 140,
-              child: image,
+              fit: BoxFit.fill,
             ),
             const SizedBox(width: 20),
             Expanded(
@@ -72,6 +79,8 @@ class CartItem extends StatelessWidget {
                       ),
                       CartItemsCounter(
                         itemCount: itemCount,
+                        onMinusPressed: onMinusPressed,
+                        onPlusPressed: onPlusPressed,
                       ),
                     ],
                   ),

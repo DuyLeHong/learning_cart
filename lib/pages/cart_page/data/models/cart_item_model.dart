@@ -1,17 +1,12 @@
-import 'package:flutter/material.dart';
+import 'product.dart';
 
 class CartItemModel {
-  final String name;
-  final Image image;
-  final double price;
-  final int count;
-
-  double get subTotal => price * count;
+  int count;
+  final Product product;
+  double get subTotal => product.price * count;
 
   CartItemModel({
-    required this.name,
-    required this.image,
-    required this.price,
+    required this.product,
     this.count = 1,
   });
 }
